@@ -11,12 +11,12 @@ export default function Page() {
     try { const res = await fetch('/api/check', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(f) });
       const j = await res.json(); if (!res.ok) setE(j.error || 'Something went wrong.'); else { setR(j); window.scrollTo(0, 0); } } catch { setE('Network error.'); } setBusy(false); }
   const comp = r ? r.terms.reduce((n, t) => n + t.competitorAds.length, 0) : 0;
-  return (<div className="w"><nav><div className="logo">OFFCUT</div><a href={BOOK} target="_top" className="fine" style={{ fontSize: 14 }}>Book a call →</a></nav>
+  return (<div className="w"><nav><a href="https://weareoffcut.com" target="_top" className="logo" aria-label="OFFCUT"><img src="/logo.png" alt="OFFCUT" height="28" /></a><a href={BOOK} target="_top" className="fine" style={{ fontSize: 14 }}>Book a call →</a></nav>
   {!r ? (<>
     <h1>Who's <em>stealing</em> your brand searches?</h1>
     <p className="lead">Enter your brand and see who's bidding on your name on Google right now, and whether you're showing up in Search and Shopping. Free, takes 30 seconds.</p>
     <form onSubmit={go} noValidate>
-      <label>Brand name<input required maxLength={60} value={f.brand} onChange={on('brand')} placeholder="e.g. Ocean Bottle" /></label>
+      <label>Brand name<input required maxLength={60} value={f.brand} onChange={on('brand')} placeholder="Your brand name" /></label>
       <label>Store URL<input required maxLength={200} value={f.url} onChange={on('url')} placeholder="yourbrand.com" /></label>
       <label>Country<select value={f.country} onChange={on('country')}>{Object.entries(COUNTRIES).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></label>
       <label>Work email<input required type="email" maxLength={120} value={f.email} onChange={on('email')} placeholder="you@yourbrand.com" /></label>
